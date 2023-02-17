@@ -1,0 +1,18 @@
+.center{
+    display: flex;
+    justify-content: center;
+}
+
+.btn-new{
+    width: 200px !important;
+    height: 2.2em;
+}
+.w-200{
+    width: 150px
+}
+.card_text{
+    color:#fff;
+}
+.title-1{
+    color: #63bee3
+}

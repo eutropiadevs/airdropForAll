@@ -1,0 +1,28 @@
+.img-pro{
+    width: 200px;
+}
+.text-deco{
+    text-decoration: none;
+  }
+
+.main{
+    z-index: 1000;
+    background: rgba(255,255,255,0.1) !important;
+    box-shadow: 0 25px 45px rgba(0,0,0,0.1) !important;
+    border: 1px solid rgba(255,255,255,0.25) !important;
+    border-right: 1px solid rgba(255,255,255,0.1) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 10px;
+    overflow: hidden;
+    backdrop-filter: blur(25px);
+    
+}
+.main a{
+    color: #fff !important;
+}
+
+.main .btn {
+    width: 100px;
+    height: 50px;
+    letter-spacing: 1.2px;
+}

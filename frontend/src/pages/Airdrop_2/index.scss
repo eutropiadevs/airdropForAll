@@ -1,0 +1,24 @@
+.airdrop_form_main_container {
+  .airdrop_form_container {
+    width: 40%;
+    display: block;
+    margin: auto;
+    background-color: var(--primary-bg);
+    padding: 1.3rem;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    .form-label {
+      font-weight: 600;
+    }
+    .btn,
+    .btn-primary {
+      background: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
