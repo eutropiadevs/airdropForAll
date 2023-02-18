@@ -6,21 +6,17 @@ import Menu from './Components/Navbar/Index';
 import Footer from './Components/Footer/Index';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import AirdropForm from './pages/Airdrop_2';
+import ExistingAirdrop from './pages/Existing Airdrop';
 
 function App() {
   return (
     <>
       <Menu />
-      {/* <List /> */}
-      {/* <Index /> */}
       <Routes>
-        <Route path="/" element={<List />} />
-        {/* <Route path ="/createdrop" element={<Index/>} /> */}
+        <Route path="/" element={<AirdropForm />} />
+        <Route path="/existing_airdrop" element={<ExistingAirdrop />} />
         <Route path="/createdrop" element={<AirdropForm />} />
-        <Route path="/showItem" element={<Item />} />
-
       </Routes>
-      {/* <Footer /> */}
     </>
 
 
