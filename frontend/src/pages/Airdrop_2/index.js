@@ -3,10 +3,17 @@ import { Col, Modal, ModalTitle, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './index.scss';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import TextField from '@mui/material/TextField';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import dayjs from 'dayjs';
+
 
 const AirdropForm = () => {
     const [uploadLogoModal, setUploadModal] = useState(false);
     const [qrModal, setQrModal] = useState(false);
+    const [value, setValue] = React.useState('2022-04-07');
 
     const onImageUploadChange = (e) => {
         var src = URL.createObjectURL(e.target.files[0])
@@ -15,8 +22,8 @@ const AirdropForm = () => {
 
     return (
         <>
-            <div className="airdrop_form_main_container">
-                <div className="airdrop_form_container mt-3">
+            <div className="airdrop_form_main_container ">
+                <div className="airdrop_form_container ">
                     <Form>
                         <ModalTitle className='mb-1' style={{ textAlign: "center", textDecoration: "underline", fontWeight: "700" }}>Create Airdrop</ModalTitle>
                         <Form.Group className="mb-3" controlId="formBasicTitle">
@@ -50,10 +57,28 @@ const AirdropForm = () => {
                             </Col>
                         </Form.Group>
 
+                        <Form.Group className="mb-3" controlId="Date">
+                            <Form.Label>Expiration Time</Form.Label>
+                            <div className='w-100'>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DateTimePicker
+                                        renderInput={(props) => <TextField {...props} />}
+                                        label="DateTimePicker"
+                                        value={value}
+                                        onChange={(newValue) => {
+                                            setValue(newValue);
+                                        }}
+                                        className="w-100"
+                                    />
+                                </LocalizationProvider>
+                            </div>
+                        </Form.Group>
+
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                             <Form.Label>Description</Form.Label>
                             <Form.Control as="textarea" rows={3} placeholder="Description" />
                         </Form.Group>
+
 
                         <Button variant="primary" onClick={() => setQrModal(true)}>
                             Create Airdrop
@@ -78,9 +103,6 @@ const AirdropForm = () => {
                                     </Form.Text>
                                 </div>
                             </Form.Group>
-                            {/* <div className="d-flex justify-content-center">
-                                <Button variant="primary" className='w-100'>Upload</Button>
-                            </div> */}
                         </Modal.Body>
                     </Modal>
 
