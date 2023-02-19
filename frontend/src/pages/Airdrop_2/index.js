@@ -47,7 +47,7 @@ const AirdropForm = () => {
             contracts.DROP_TOKEN?.abi,
             signer
         );
-        console.log(DropToken.address,"DPT")
+        console.log(DropToken.address, "DPT")
         const transaction = await DropToken.approve(contracts.FACTORY?.address, 10000000000000000000000000n);
         // setRedirectPath(true)
         console.log(transaction);
@@ -60,44 +60,54 @@ const AirdropForm = () => {
             // navigate("/liveMatches", { replace: true })
 
         }
+        return transaction;
     };
 
     const createAirdrop = async () => {
         // ips(username, trait, selectedUser);
-        let ipfsUrl = ""
 
-        const web3Modal = new Web3Modal();
-        const connection = await web3Modal.connect();
-        const provider = new ethers.providers.Web3Provider(connection);
-        const signer = provider.getSigner();
+        let approvedData = await approveTx()
+        console.log(approvedData, "approvedData");
 
-        const Factory = new ethers.Contract(
-            contracts.FACTORY?.address,
-            contracts.FACTORY.abi,
-            signer
-        );
-        const transaction = await Factory.create_airdrop(
-            airdropData?.title,
-            airdropData?.description,
-            airdropData?.ipfs_url,
-            airdropData?.expiry_time,
-            airdropData?.amount_per_user,
-            airdropData?.token_contract_address,
-            airdropData?.total_airdrop_amount,
-        );
-        // setRedirectPath(true)
-        console.log(transaction);
-        let tx = await transaction.wait();
-        console.log(tx)
-        // let event = tx.events[0];
-        // let value = event.args[2];
+        if (approvedData?.hash) {
+            console.log("Entre in if func")
+            let ipfsUrl = ""
 
-        if (tx['transactionIndex'] != null) {
+            const web3Modal = new Web3Modal();
+            const connection = await web3Modal.connect();
+            const provider = new ethers.providers.Web3Provider(connection);
+            const signer = provider.getSigner();
 
-            // setRedirectPath(false)
-            // navigate("/selectProfile", { replace: true })
+            const Factory = new ethers.Contract(
+                contracts.FACTORY?.address,
+                contracts.FACTORY.abi,
+                signer
+            );
+            const transaction = await Factory.create_airdrop(
+                airdropData?.title,
+                airdropData?.description,
+                airdropData?.ipfs_url,
+                airdropData?.expiry_time,
+                airdropData?.amount_per_user,
+                airdropData?.token_contract_address,
+                airdropData?.total_airdrop_amount,
+            );
+            // setRedirectPath(true)
+            console.log(transaction);
+            let tx = await transaction.wait();
+            console.log(tx)
+            // let event = tx.events[0];
+            // let value = event.args[2];
 
+            if (tx['transactionIndex'] != null) {
+                // setRedirectPath(false)
+                // navigate("/selectProfile", { replace: true })
+            }
+        } else {
+            window.alert("Approve Failed")
         }
+
+
     };
 
     const onInputChange = (e) => {
@@ -109,7 +119,6 @@ const AirdropForm = () => {
             <div className="airdrop_form_main_container ">
                 <div className="airdrop_form_container ">
                     <div className="approve_btn">
-
                         <button className='button' onClick={approveTx}>Approve Once</button>
                     </div>
                     <Form>
@@ -160,7 +169,7 @@ const AirdropForm = () => {
                                         value={value}
                                         onChange={(newValue) => {
                                             setValue(newValue);
-                                            setAirdropData({ ...airdropData, ["expiry_time"]: moment().unix(value) })
+                                            setAirdropData({ ...airdropData, ["expiry_time"]: moment().unix(newValue) })
                                         }}
                                         className="w-100"
                                     />

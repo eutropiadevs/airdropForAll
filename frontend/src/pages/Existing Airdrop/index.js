@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -13,6 +13,7 @@ function ExistingAirdrop() {
 
     const [showClaimModal, setShowClaimMpdal] = useState(false);
     const [showViewModal, setShowViewMdal] = useState(false);
+    const [airdropList, setAirdropLogo] = useState([])
 
     const handleClose = () => {
         setShowViewMdal(false)
@@ -41,43 +42,58 @@ function ExistingAirdrop() {
         );
         const tokenIds = await Factory.get_airdrops();
         console.log(tokenIds);
+        setAirdropLogo(tokenIds)
     }
 
+    useEffect(() => {
+        listAirdrops()
+    }, []);
+    console.log(airdropList, "airdropList");
     return (
         <>
             <Container>
                 <Row className="mx-auto mt-3">
                     <div className="existing_airdrop_main_container">
                         <div className="existing_airdrop_container">
-                            <div className="approve_btn">
-
-                                <button className='button' onClick={listAirdrops}>erfererfdcre edfef</button>
-                            </div>
                             <Row className='gy-4'>
-                                <Col>
-                                    <Card style={{ width: '18rem' }}>
-                                        <Card.Img variant="top" src="https://source.unsplash.com/random/1920x1080/?wallpaper,forest" style={{ minHeight: "170px", maxHeight: "170px" }} />
-                                        <Card.Body>
-                                            <div className="d-flex align-items-center justify-content-between smaill_claim_btn">
-                                                <Card.Title className='h0'>Card Title</Card.Title>
-                                                <ClaimAirdropModal showClaimModal={showClaimModal} handleClose={handleClose} handleClaimShow={handleClaimShow} />
-                                            </div>
-                                            <Card.Text>
-                                                Some quick example text to build on the card title and make up the
-                                                bulk of the card's content.
-                                            </Card.Text>
-                                            <div className="card_claim_modal_container">
-                                                <ViewAirdropDetails
-                                                    showViewModal={showViewModal}
-                                                    handleClose={handleClose}
-                                                    handleViewShow={handleViewShow}
-                                                    showClaimModal={showClaimModal}
-                                                    handleClaimShow={handleClaimShow}
-                                                />                                            </div>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                                <Col>
+                                {/* <Col> */}
+                                {airdropList && airdropList?.map((item) => {
+                                    return (
+                                        <Col>
+                                            <Card style={{ width: '18rem' }}>
+                                                <Card.Img variant="top" src="https://source.unsplash.com/random/1920x1080/?wallpaper,forest" style={{ minHeight: "170px", maxHeight: "170px" }} />
+                                                <Card.Body>
+                                                    <div className="d-flex align-items-center justify-content-between smaill_claim_btn">
+                                                        <Card.Title className='h0'>{item?.title}</Card.Title>
+                                                        <ClaimAirdropModal
+                                                            data={item}
+                                                            showClaimModal={showClaimModal}
+                                                            handleClose={handleClose}
+                                                            handleClaimShow={handleClaimShow}
+
+                                                        />
+                                                    </div>
+                                                    <Card.Text>
+                                                        {item?.description}
+                                                    </Card.Text>
+                                                    <div className="card_claim_modal_container">
+                                                        <ViewAirdropDetails
+                                                            data={item}
+                                                            showViewModal={showViewModal}
+                                                            handleClose={handleClose}
+                                                            handleViewShow={handleViewShow}
+                                                            showClaimModal={showClaimModal}
+                                                            handleClaimShow={handleClaimShow}
+                                                        />
+                                                    </div>
+                                                </Card.Body>
+                                            </Card>
+                                        </Col>
+                                    )
+                                })}
+                                {/* </Col> */}
+
+                                {/* <Col>
                                     <Card style={{ width: '18rem' }}>
                                         <Card.Img variant="top" src="https://source.unsplash.com/random/1920x1080/?wallpaper,sea" style={{ minHeight: "170px", maxHeight: "170px" }} />
                                         <Card.Body>
@@ -101,6 +117,7 @@ function ExistingAirdrop() {
                                         </Card.Body>
                                     </Card>
                                 </Col>
+                                
                                 <Col>
                                     <Card style={{ width: '18rem' }}>
                                         <Card.Img variant="top" src="https://source.unsplash.com/random/1920x1080/?wallpaper,animal" style={{ minHeight: "170px", maxHeight: "170px" }} />
@@ -124,7 +141,7 @@ function ExistingAirdrop() {
                                             </div>
                                         </Card.Body>
                                     </Card>
-                                </Col>
+                                </Col> */}
 
                             </Row>
 

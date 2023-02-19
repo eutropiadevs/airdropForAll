@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useState } from 'react'
 import { Card, Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
@@ -6,6 +7,7 @@ import ClaimAirdropModal from '../Claim Airdrop/claimAirdropModal';
 import './viewAirdropDetails.scss'
 
 const ViewAirdropDetails = ({
+    data,
     showViewModal,
     handleClose,
     handleViewShow,
@@ -36,13 +38,13 @@ const ViewAirdropDetails = ({
                                     <div className="title_container">
                                         <div className="heading">Title :</div>
                                         <div className="title_text">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                            {data?.title}
                                         </div>
                                     </div>
                                     <div className="description_container">
                                         <div className="lable">Description :</div>
                                         <div className="description_text">
-                                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur recusandae reiciendis ab itaque optio delectus eaque officiis eius odit accusantium.
+                                            {data?.description}
                                         </div>
                                     </div>
                                 </div>
@@ -51,18 +53,18 @@ const ViewAirdropDetails = ({
                                 <Col>
                                     <Row>
                                         <div className="key">Expires In :</div>
-                                        <div className="value">12D 8H 35M 12S</div>
+                                        <div className="value">{moment.unix((parseInt(data?.expiry?._hex, 16))).format("DD/MM/YYYY")}</div>
                                     </Row>
                                     <Row>
                                         <div className="key">Claimable Amount :</div>
-                                        <div className="value"> 120 XYZ</div>
+                                        <div className="value"> {parseInt(data?.per_user_amount?._hex, 16)} </div>
                                     </Row>
                                     <Row>
-                                        <div className="key">Token Contract :</div>
-                                        <div className="value">xcdfvsfyn980hsdhujsgsst</div>
+                                        <div className="key">Airdrop Contract :</div>
+                                        <div className="value">{data?.contract_address}</div>
                                     </Row>
                                     <div className="view_airdrop_modal_btn_container mt-2">
-                                        <ClaimAirdropModal showClaimModal={showClaimModal} handleClose={handleClose} handleClaimShow={handleClaimShow} />
+                                        <ClaimAirdropModal data={data} showClaimModal={showClaimModal} handleClose={handleClose} handleClaimShow={handleClaimShow} />
                                     </div>
                                 </Col>
 
