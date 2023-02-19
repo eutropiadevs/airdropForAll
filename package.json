@@ -18,6 +18,7 @@
     "moment": "^2.29.4",
     "react-qr-svg": "^2.4.0",
     "solidity-bytes-utils": "^0.8.0"
+    
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",
