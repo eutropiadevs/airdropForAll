@@ -41,7 +41,7 @@ function Menu() {
 
               <Dropdown.Menu>
                 {/* <Dropdown.Item href="#/action-1">MetaMask</Dropdown.Item> */}
-                <div className="wallet_container" onClick={() => metaMaskConnectHandle()}>
+                <div className="wallet_container" onClick={() => metaMaskConnectHandle()} style={{ marginLeft: "10px", cursor: "pointer" }} >
                   Matamask
                   {/* <ConnectWallet /> */}
                 </div>

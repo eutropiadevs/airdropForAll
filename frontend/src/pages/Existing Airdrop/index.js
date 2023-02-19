@@ -41,14 +41,14 @@ function ExistingAirdrop() {
             signer
         );
         const tokenIds = await Factory.get_airdrops();
-        console.log(tokenIds);
+
         setAirdropLogo(tokenIds)
     }
 
     useEffect(() => {
         listAirdrops()
     }, []);
-    console.log(airdropList, "airdropList");
+
     return (
         <>
             <Container>
@@ -61,7 +61,7 @@ function ExistingAirdrop() {
                                     return (
                                         <Col>
                                             <Card style={{ width: '18rem' }}>
-                                                <Card.Img variant="top" src="https://source.unsplash.com/random/1920x1080/?wallpaper,forest" style={{ minHeight: "170px", maxHeight: "170px" }} />
+                                                <Card.Img variant="top" src={item?.logo_url} style={{ minHeight: "170px", maxHeight: "170px", padding: "10px" }} />
                                                 <Card.Body>
                                                     <div className="d-flex align-items-center justify-content-between smaill_claim_btn">
                                                         <Card.Title className='h0'>{item?.title}</Card.Title>
@@ -70,7 +70,6 @@ function ExistingAirdrop() {
                                                             showClaimModal={showClaimModal}
                                                             handleClose={handleClose}
                                                             handleClaimShow={handleClaimShow}
-
                                                         />
                                                     </div>
                                                     <Card.Text>
