@@ -10,10 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@mui/x-date-pickers": "^5.0.19",
     "@nomiclabs/hardhat-waffle": "^2.0.3",
     "@openzeppelin/contracts": "^4.7.3",
     "dotenv": "^16.0.2",
     "ethers": "^5.4.7",
+    "moment": "^2.29.4",
+    "react-qr-svg": "^2.4.0",
     "solidity-bytes-utils": "^0.8.0"
   },
   "devDependencies": {
