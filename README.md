@@ -26,14 +26,14 @@ This tutorial uses [Hardhat](https://hardhat.org/) as a development environment 
 
 4. Deploy smart contracts
     `npx hardhat run --network mumbai scripts/deploy.js`
-- Drop Token deployed to: 0xa7f7860f0d525914b55a473573E286eF18e5F835
-- ERC20Verifier contract hash: 0xE9035A84a523dC3d745B2330D066B3B4482db7eb
-- FactoryContract hash: 0x61924f9A282432d9D04A2Be4A2b1DF5dc796f058
+- Drop Token deployed to: 0x34cb10Ec8b300821943112c73e81191784c19C93
+- ERC20Verifier contract hash: 0xf7d67448132bfBdBE496Ef1633fD62f0D342f9a8
+- FactoryContract hash: 0xAC70A6c866328e6283A787FDE99B6d8860cB517D
 
 5. Update the `ERC20VerifierAddress` variable in scripts/set-request.js with your deployed contract address
 
 6. Run set-request to send the zk request to the smart contract
-    `npx hardhat run --network mumbai scripts/set-request.js`
+    `npx hardhat run --network matic scripts/deploy.js`
     - Successful tx means the age query has been set up: https://mumbai.polygonscan.com/tx/0xd04afd57eb3c0388525026a15578802289bce06d78060069f072540e7d9dd1ca
 
 

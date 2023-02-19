@@ -8,11 +8,11 @@ import Web3Modal from 'web3modal';
 export const contracts = {
     FACTORY: {
         abi: FACTORY.abi,
-        address: "0x12B9168e499297e4e641253F699c4a61669219a8",
+        address: "0xAC70A6c866328e6283A787FDE99B6d8860cB517D",
     },
     DROP_TOKEN: {
         abi: DROP.abi,
-        address: "0x8de22B9422F5E1F323862f7b5f1A37b65c69d3C6",
+        address: "0x34cb10Ec8b300821943112c73e81191784c19C93",
     },
 
 };
@@ -36,30 +36,6 @@ export const requestAccount = async () => {
 
 
 };
-
-
-// export const requestBalance = async () => {
-//     const web3Modal = new Web3Modal();
-//     const connection = await web3Modal.connect();
-//     const provider = new ethers.providers.Web3Provider(connection);
-//     const signer = provider.getSigner();
-
-//     const Spotogame = new ethers.Contract(
-//         contracts.SPOTO_GAME.address,
-//         contracts.SPOTO_GAME.abi,
-//         signer
-//     );
-
-//     try {
-//         const data = await Spotogame.balanceOf(requestAccount());
-
-//         const bal = bigNumberToDecimal(data);
-//         localStorage.setItem("userBal", bal);
-//     } catch (error) {
-//         console.log(error);
-//         window.alert("Please connect Matic Mumbai Testnet");
-//     }
-// };
 
 export const callContractMethod = async (method) => {
     let error, result;
