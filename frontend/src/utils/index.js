@@ -20,10 +20,16 @@ export const bigNumberToDecimal = (number) => {
 
 export const requestAccount = async () => {
 
-    const [account] = await window.ethereum.request({
-        method: "eth_requestAccounts",
-    });
-    return account;
+    try {
+        const [account] = await window.ethereum.request({
+            method: "eth_requestAccounts",
+        });
+        return account;
+    } catch (error) {
+        console.log(error);
+    }
+
+
 };
 
 

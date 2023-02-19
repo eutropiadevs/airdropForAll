@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import QrCode from '../QR Code';
 import './claimAirdropModal.scss';
 
 const ClaimAirdropModal = ({ showClaimModal, handleClose, handleClaimShow }) => {
@@ -18,10 +19,7 @@ const ClaimAirdropModal = ({ showClaimModal, handleClose, handleClaimShow }) => 
 
             <Modal show={showClaimModal} onHide={handleClose} centered>
                 <Modal.Body className='d-flex justify-content-center flex-column align-items-center'>
-                    <div className="mx-auto ">
-                        <img className="img-pro" src="https://fragrant.mobiletransaction.org/wp-content/uploads/2019/09/qr-code-for-wikipedia.png" alt="React Image" />
-                    </div>
-
+                    <QrCode />
                     <p>Please use ur polygon_id scanner to fetch the claim</p>
                 </Modal.Body>
             </Modal>
