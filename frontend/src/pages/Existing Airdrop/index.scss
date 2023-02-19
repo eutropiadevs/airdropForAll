@@ -1,0 +1,23 @@
+.existing_airdrop_main_container {
+  .existing_airdrop_container {
+    .card {
+      .card-image-top {
+      }
+      .card-body {
+        .card-title {
+          color: black;
+          font-size: 1.6rem !important;
+          font-weight: 600;
+          margin-bottom: 0;
+        }
+        .card-text {
+        }
+        .btn,
+        .btn-primary {
+          background: var(--primary-color);
+          border-color: var(--primary-color);
+        }
+      }
+    }
+  }
+}

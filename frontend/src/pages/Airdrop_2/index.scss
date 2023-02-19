@@ -2,7 +2,7 @@
   .airdrop_form_container {
     width: 40%;
     display: block;
-    margin: auto;
+    margin: 20px auto;
     background-color: var(--primary-bg);
     padding: 1.3rem;
     border-radius: 10px;
@@ -20,5 +20,17 @@
       -webkit-appearance: none;
       margin: 0;
     }
+  }
+}
+.modal-body {
+  .btn,
+  .btn-primary {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  .card-img-top {
+    padding: 10px;
+    max-height: 13rem;
+    object-fit: fill;
   }
 }

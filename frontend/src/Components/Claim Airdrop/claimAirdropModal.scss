@@ -1,0 +1,18 @@
+.smaill_claim_btn {
+  .btn-primary {
+    &.claim_airdrop_btn {
+      line-height: 0;
+      padding: 11px 17px;
+      font-size: 14px;
+      font-weight: 400;
+    }
+  }
+}
+
+.view_airdrop_modal_btn_container {
+  .btn-primary {
+    &.claim_airdrop_btn {
+      width: 100%;
+    }
+  }
+}
