@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { requestAccount } from '../../utils';
+import Logo from '../../asset/images/Logo.png';
 
 function Menu() {
 
@@ -24,7 +25,14 @@ function Menu() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="/">Airdrop Logo</Navbar.Brand>
+        <Navbar.Brand href="/">
+          <div className="logo_container">
+            <div className="logo">
+              <img src={Logo} alt="" />
+            </div>
+            <span> Airdrop For All</span>
+          </div>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
@@ -39,9 +47,9 @@ function Menu() {
                 Connect Wallet
               </Dropdown.Toggle>
 
-              <Dropdown.Menu>
+              <Dropdown.Menu >
                 {/* <Dropdown.Item href="#/action-1">MetaMask</Dropdown.Item> */}
-                <div className="wallet_container" onClick={() => metaMaskConnectHandle()}>
+                <div className="wallet_container" onClick={() => metaMaskConnectHandle()} style={{ marginLeft: "10px", cursor: "pointer" }} >
                   Matamask
                   {/* <ConnectWallet /> */}
                 </div>

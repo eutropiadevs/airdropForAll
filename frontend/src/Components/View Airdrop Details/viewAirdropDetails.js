@@ -15,24 +15,19 @@ const ViewAirdropDetails = ({
     handleClaimShow
 }) => {
 
-    // const [show, setShow] = useState(false);
-
-    // const handleClose = () => setShow(false);
-    // const handleShow = () => setShow(true);
-
     return (
         <>
             <Button variant="primary" onClick={handleViewShow} className="w-100">
                 View Details
             </Button>
 
-            <Modal show={showViewModal} onHide={handleClose} centered>
+            <Modal show={showViewModal} onHide={handleClose} centered >
                 <Modal.Body className='d-flex justify-content-center flex-column align-items-center'>
                     <div className="detail_mian_container">
                         <div className="details_container">
                             <div className="top_container">
                                 <div className="left_icon_container">
-                                    <img src="https://source.unsplash.com/random/1920x1080/?wallpaper,forest" alt="@image" />
+                                    <img src={data?.logo_url} alt="@image" />
                                 </div>
                                 <div className="right_text_container">
                                     <div className="title_container">

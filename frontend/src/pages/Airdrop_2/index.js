@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Col, Modal, ModalTitle, Row } from 'react-bootstrap';
+import { Alert, Col, Modal, ModalTitle, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './index.scss';
@@ -21,6 +21,7 @@ const AirdropForm = () => {
     const [uploadLogoModal, setUploadModal] = useState(false);
     const [qrModal, setQrModal] = useState(false);
     const [value, setValue] = useState('');
+    const [loading, setLoading] = useState(false)
     const [airdropData, setAirdropData] = useState({
         title: "",
         amount_per_user: "",
@@ -37,24 +38,23 @@ const AirdropForm = () => {
     }
 
     const approveTx = async () => {
+        setLoading(true)
         const web3Modal = new Web3Modal();
         const connection = await web3Modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
-        console.log("DPT")
+
         const DropToken = new ethers.Contract(
             contracts.DROP_TOKEN?.address,
             contracts.DROP_TOKEN?.abi,
             signer
         );
-        console.log(DropToken.address, "DPT")
+
         const transaction = await DropToken.approve(contracts.FACTORY?.address, 10000000000000000000000000n);
         // setRedirectPath(true)
         console.log(transaction);
         let tx = await transaction.wait();
-        // let event = tx.events[0];
-        // let value = event.args[2];
-        console.log(tx)
+        setLoading(false)
         if (tx['transactionIndex'] != null) {
             // setRedirectPath(false)
             // navigate("/liveMatches", { replace: true })
@@ -68,9 +68,9 @@ const AirdropForm = () => {
 
         let approvedData = await approveTx()
         console.log(approvedData, "approvedData");
-
+        setLoading(true)
         if (approvedData?.hash) {
-            console.log("Entre in if func")
+            setLoading(true)
             let ipfsUrl = ""
 
             const web3Modal = new Web3Modal();
@@ -92,18 +92,26 @@ const AirdropForm = () => {
                 airdropData?.token_contract_address,
                 airdropData?.total_airdrop_amount,
             );
-            // setRedirectPath(true)
-            console.log(transaction);
             let tx = await transaction.wait();
-            console.log(tx)
-            // let event = tx.events[0];
-            // let value = event.args[2];
+            setLoading(false)
+            setAirdropData({
+                title: "",
+                amount_per_user: "",
+                total_airdrop_amount: "",
+                token_contract_address: "",
+                ipfs_url: "",
+                expiry_time: "",
+                description: ""
+            })
+            window.alert("Transaction Successfull")
 
             if (tx['transactionIndex'] != null) {
+                setLoading(false)
                 // setRedirectPath(false)
                 // navigate("/selectProfile", { replace: true })
             }
         } else {
+            setLoading(false)
             window.alert("Approve Failed")
         }
 
@@ -118,14 +126,11 @@ const AirdropForm = () => {
         <>
             <div className="airdrop_form_main_container ">
                 <div className="airdrop_form_container ">
-                    <div className="approve_btn">
-                        <button className='button' onClick={approveTx}>Approve Once</button>
-                    </div>
                     <Form>
                         <ModalTitle className='mb-1' style={{ textAlign: "center", textDecoration: "underline", fontWeight: "700" }}>Create Airdrop</ModalTitle>
-                        <Form.Group className="mb-3" controlId="formBasicTitle">
+                        <Form.Group className="mb-3" controlId="formBasicTitle" >
                             <Form.Label>Airdrop Title</Form.Label>
-                            <Form.Control type="text" placeholder="Enter airdrop title" name="title" onChange={(e) => onInputChange(e)} />
+                            <Form.Control type="text" placeholder="Enter airdrop title" name="title" onChange={(e) => onInputChange(e)} required />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicNumber">
@@ -143,20 +148,9 @@ const AirdropForm = () => {
                             <Form.Control type="text" placeholder="Enter token contract" name="token_contract_address" onChange={(e) => onInputChange(e)} />
                         </Form.Group>
 
-                        <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
-                            <Col sm="12">
-                                <Form.Group className="" controlId="formBasicLogo">
-                                    <Form.Label>Airdrop Logo</Form.Label>
-                                    <div>
-                                        <Form.Text className="text-muted">
-                                            IPFS URL:
-                                        </Form.Text>
-                                    </div>
-                                    <Button className='ml-5 btn-new w-100 mt-2' variant="success" onClick={() => setUploadModal(true)}>
-                                        Upload Image
-                                    </Button>
-                                </Form.Group>
-                            </Col>
+                        <Form.Group className="mb-3" controlId="formBasicContract">
+                            <Form.Label>Airdrop Logo</Form.Label>
+                            <Form.Control type="text" placeholder="Upload token logo" name="ipfs_url" onChange={(e) => onInputChange(e)} />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="Date">
@@ -183,12 +177,23 @@ const AirdropForm = () => {
                         </Form.Group>
 
 
-                        <Button variant="primary" onClick={() => {
-                            // setQrModal(true)
-                            createAirdrop()
-                        }
-                        }>
-                            Create Airdrop
+                        <Button variant="primary"
+                            disabled={
+                                loading ||
+                                !airdropData?.amount_per_user ||
+                                !airdropData?.description ||
+                                !airdropData?.expiry_time ||
+                                !airdropData?.ipfs_url ||
+                                !airdropData?.title ||
+                                !airdropData?.token_contract_address ||
+                                !airdropData?.total_airdrop_amount
+                            }
+                            onClick={() => {
+                                // setQrModal(true)
+                                createAirdrop()
+                            }
+                            }>
+                            {loading ? "Tx in Process" : "  Create Airdrop"}
                         </Button>
                     </Form>
 
