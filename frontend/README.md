@@ -1,1 +1,0 @@
-# airdrop_for_all
