@@ -41,17 +41,8 @@ contract airdrop_factory {
             title,
             peruseramount
         );
-        ERC20(address(token_address)).approve(
-            msg.sender,
-            total_airdrop_deposit * 10**18
-        );
         ERC20(address(token_address)).transferFrom(
-            address(this),
             msg.sender,
-            total_airdrop_deposit * 10**18
-        );
-        ERC20(address(token_address)).transferFrom(
-            address(this),
             address(address_deployed),
             total_airdrop_deposit * 10**18
         );
@@ -61,7 +52,7 @@ contract airdrop_factory {
     function get_airdrops()
         public
         view
-        returns (Airdrop[] memory airdrop_list)
+        returns (Airdrop[] memory)
     {
         return airdrop_list;
     }

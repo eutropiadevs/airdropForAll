@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Web3Modal from 'web3modal';
+import { ethers } from 'ethers';
+import { contracts } from '../../utils';
 import ClaimAirdropModal from '../../Components/Claim Airdrop/claimAirdropModal';
 import ViewAirdropDetails from '../../Components/View Airdrop Details/viewAirdropDetails';
 import './index.scss';
@@ -25,12 +28,31 @@ function ExistingAirdrop() {
         setShowViewMdal(true)
     };
 
+    const listAirdrops = async () => {
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+
+        const Factory = new ethers.Contract(
+            contracts.FACTORY?.address,
+            contracts.FACTORY.abi,
+            signer
+        );
+        const tokenIds = await Factory.get_airdrops();
+        console.log(tokenIds);
+    }
+
     return (
         <>
             <Container>
                 <Row className="mx-auto mt-3">
                     <div className="existing_airdrop_main_container">
                         <div className="existing_airdrop_container">
+                            <div className="approve_btn">
+
+                                <button className='button' onClick={listAirdrops}>erfererfdcre edfef</button>
+                            </div>
                             <Row className='gy-4'>
                                 <Col>
                                     <Card style={{ width: '18rem' }}>

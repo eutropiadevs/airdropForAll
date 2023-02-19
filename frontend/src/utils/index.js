@@ -1,4 +1,5 @@
 import FACTORY from "../artifacts/contracts/factory.sol/airdrop_factory.json";
+import DROP from "../artifacts/contracts/DropToken.sol/DropToken.json";
 import { BigNumber } from "ethers";
 import { ethers } from "ethers";
 import Web3Modal from 'web3modal';
@@ -7,7 +8,11 @@ import Web3Modal from 'web3modal';
 export const contracts = {
     FACTORY: {
         abi: FACTORY.abi,
-        address: "0x61924f9A282432d9D04A2Be4A2b1DF5dc796f058",
+        address: "0x12B9168e499297e4e641253F699c4a61669219a8",
+    },
+    DROP_TOKEN: {
+        abi: DROP.abi,
+        address: "0x8de22B9422F5E1F323862f7b5f1A37b65c69d3C6",
     },
 
 };

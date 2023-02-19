@@ -36,6 +36,32 @@ const AirdropForm = () => {
         document.getElementById('image').src = src
     }
 
+    const approveTx = async () => {
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+        console.log("DPT")
+        const DropToken = new ethers.Contract(
+            contracts.DROP_TOKEN?.address,
+            contracts.DROP_TOKEN?.abi,
+            signer
+        );
+        console.log(DropToken.address,"DPT")
+        const transaction = await DropToken.approve(contracts.FACTORY?.address, 10000000000000000000000000n);
+        // setRedirectPath(true)
+        console.log(transaction);
+        let tx = await transaction.wait();
+        // let event = tx.events[0];
+        // let value = event.args[2];
+        console.log(tx)
+        if (tx['transactionIndex'] != null) {
+            // setRedirectPath(false)
+            // navigate("/liveMatches", { replace: true })
+
+        }
+    };
+
     const createAirdrop = async () => {
         // ips(username, trait, selectedUser);
         let ipfsUrl = ""
@@ -50,7 +76,7 @@ const AirdropForm = () => {
             contracts.FACTORY.abi,
             signer
         );
-        const transaction = await Factory.createAirdrop(
+        const transaction = await Factory.create_airdrop(
             airdropData?.title,
             airdropData?.description,
             airdropData?.ipfs_url,
@@ -63,8 +89,8 @@ const AirdropForm = () => {
         console.log(transaction);
         let tx = await transaction.wait();
         console.log(tx)
-        let event = tx.events[0];
-        let value = event.args[2];
+        // let event = tx.events[0];
+        // let value = event.args[2];
 
         if (tx['transactionIndex'] != null) {
 
@@ -82,6 +108,10 @@ const AirdropForm = () => {
         <>
             <div className="airdrop_form_main_container ">
                 <div className="airdrop_form_container ">
+                    <div className="approve_btn">
+
+                        <button className='button' onClick={approveTx}>Approve Once</button>
+                    </div>
                     <Form>
                         <ModalTitle className='mb-1' style={{ textAlign: "center", textDecoration: "underline", fontWeight: "700" }}>Create Airdrop</ModalTitle>
                         <Form.Group className="mb-3" controlId="formBasicTitle">
