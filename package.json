@@ -15,6 +15,7 @@
     "@openzeppelin/contracts": "^4.7.3",
     "dotenv": "^16.0.2",
     "moment": "^2.29.4",
+    "ethers": "^5.4.7",
     "solidity-bytes-utils": "^0.8.0"
   },
   "devDependencies": {

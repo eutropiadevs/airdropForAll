@@ -9,6 +9,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 // import dayjs from 'dayjs';
 
+import Web3Modal from 'web3modal';
+import { ethers } from 'ethers';
+import { contracts } from '../../utils';
+
 
 const AirdropForm = () => {
     const [uploadLogoModal, setUploadModal] = useState(false);
@@ -19,6 +23,41 @@ const AirdropForm = () => {
         var src = URL.createObjectURL(e.target.files[0])
         document.getElementById('image').src = src
     }
+
+
+
+    const createNFT = async () => {
+
+        // ips(username, trait, selectedUser);
+        let ipfsUrl=""
+
+        const web3Modal = new web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+
+        const NFTContract = new ethers.Contract(
+            contracts.FACTORY?.address,
+            contracts.FACTORY.abi,
+            signer
+        );
+        const transaction = await NFTContract.safeMint(ipfsUrl);
+        // setRedirectPath(true)
+        console.log(transaction);
+        let tx = await transaction.wait();
+        console.log(tx)
+        let event = tx.events[0];
+        let value = event.args[2];
+
+        if (tx['transactionIndex'] != null) {
+           
+            // setRedirectPath(false)
+            // navigate("/selectProfile", { replace: true })
+
+        }
+    };
+
+
 
     return (
         <>
